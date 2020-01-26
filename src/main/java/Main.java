@@ -3,6 +3,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import service.FileService;
+import utility.InMemoryDb;
 
 public class Main extends Application {
 
@@ -11,8 +13,13 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view/loginView.fxml"));
         primaryStage.setTitle("panel logowania");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);                   // blokowanie zmiany rozmiaru okna
+        primaryStage.setResizable(false);                           // blokowanie zmiany rozmiaru okna
         primaryStage.show();
+        // aktualizacja listy users
+        FileService.selectUsers();                                  // pobranie zawartosci pliku i dodanie do listy
+        FileService.selectBaskets();
+        InMemoryDb.users.forEach(System.out::println);              // wypisanie listy users na konsoli
+        FileService.updateUsers();
     }
 
 

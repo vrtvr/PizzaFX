@@ -5,9 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.User;
 import service.LoginService;
+import service.WindowService;
 
+import java.io.IOException;
 import java.util.Optional;
 
 // klasa obslugujaca zadania uzytkownika
@@ -15,6 +19,7 @@ import java.util.Optional;
 public class LoginController {
     // obiekty globalne
     LoginService loginService;
+    WindowService windowService;
 
     @FXML
     private TextField tfLogin;
@@ -26,24 +31,23 @@ public class LoginController {
     private Label lblInfo;
 
     @FXML
-    void loginAction(ActionEvent event) {
-        Optional<User> userOpt = loginService.loginUser(tfLogin.getText(), pfPassword.getText());
-        if(userOpt.isPresent()) {
-            if (userOpt.get().isStatus()) {
-                lblInfo.setText("zalogowano");
-                loginService.clearLoginProbes(userOpt.get());
-            } else {
-                lblInfo.setText("Twoje konto jest zablokowane");
-            }
-        } else {
-//            lblInfo.setText("błąd logowania");
-            loginService.decrementProbes(tfLogin.getText());
-            lblInfo.setText(loginService.getLoginProbes(tfLogin.getText()));
+    void keyLoginAction(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            loginService.login(tfLogin, pfPassword, lblInfo);
         }
+    }
+    @FXML
+    void loginAction(ActionEvent event) {
+        loginService.login(tfLogin, pfPassword, lblInfo);
+
     }
 
     @FXML
-    void registerAction(ActionEvent event) {
+    void registerAction(ActionEvent event) throws IOException {
+        // otwarcie nowego okna rejestracji
+        windowService.createWindow("registrationView", "panel rejestracji");
+        // zamkniecie okna logowania
+        windowService.closeWindow(lblInfo); // podajemy dowolona kontrolke znajdujaca sie na oknie aplikacji w argumencie
 
     }
 
@@ -51,7 +55,10 @@ public class LoginController {
     public void initialize() {
         // inicjalizacja logiki biznesowej
         loginService = new LoginService();
+        windowService = new WindowService();
 
     }
+
+
 
 }
