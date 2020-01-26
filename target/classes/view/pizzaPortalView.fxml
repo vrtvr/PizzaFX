@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PizzaPortalController">
+   <children>
+      <VBox prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #d8d8d8;">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="1000.0" style="-fx-background-color: #d8d8d8;">
+              <menus>
+                <Menu mnemonicParsing="false" text="Plik">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Wyloguj" />
+                    <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Wyjdź" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label fx:id="lblLogin" prefHeight="20.0" prefWidth="1000.0" style="-fx-background-color: #f2f2f2;" text="zalogowano: xxx">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <TabPane prefHeight="455.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="tabMenu" style="-fx-background-color: #009246;" text="MENU">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <TableView fx:id="tblPizza" layoutY="29.0" onMouseClicked="#selectPizzaAction" prefHeight="345.0" prefWidth="980.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                                <columns>
+                                  <TableColumn fx:id="tcName" prefWidth="100.0" text="NAZWA" />
+                                  <TableColumn fx:id="tcIngredients" prefWidth="638.0" text="SKŁADNIKI" />
+                                    <TableColumn fx:id="tcDescription" prefWidth="75.0" text="OPIS" />
+                                    <TableColumn fx:id="tcPrice" prefWidth="75.0" text="CENA" />
+                                    <TableColumn fx:id="tcQuantity" prefWidth="75.0" text="WYBÓR" />
+                                </columns>
+                              </TableView>
+                              <Button layoutX="730.0" layoutY="387.0" mnemonicParsing="false" onAction="#clearAction" prefHeight="25.0" prefWidth="121.0" text="wyczyść" />
+                              <Button layoutX="866.0" layoutY="387.0" mnemonicParsing="false" onAction="#addToBasketAction" prefHeight="25.0" prefWidth="120.0" text="dodaj do koszyka" />
+                              <Label fx:id="lblPizzaOfDay" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" prefHeight="31.0" prefWidth="980.0" text="PIZZA DNIA: !!!" textFill="#cc2b38">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font></Label>
+                              <Label fx:id="lblSum" layoutX="14.0" layoutY="391.0" text="do zapłaty: 0,00 zł" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="tabBasket" style="-fx-background-color: #ffffff;" text="KOSZYK">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <ListView fx:id="lvBasket" layoutX="586.0" layoutY="37.0" prefHeight="345.0" prefWidth="400.0" />
+                              <ImageView fitHeight="378.0" fitWidth="400.0" layoutX="586.0" layoutY="101.0" opacity="0.34" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pizza0.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="565.0" text="MOJE ZAMÓWIENIA">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="tblBasket" layoutX="14.0" layoutY="37.0" onMouseClicked="#showDetailsAction" prefHeight="375.0" prefWidth="565.0">
+                                <columns>
+                                  <TableColumn fx:id="tcBasket" prefWidth="398.0" text="ZAMÓWIENIE" />
+                                  <TableColumn fx:id="tcStatus" prefWidth="150.0" text="STATUS" />
+                                </columns>
+                              </TableView>
+                              <Label fx:id="lblBasketAmount" alignment="CENTER_RIGHT" layoutX="586.0" layoutY="387.0" prefHeight="25.0" prefWidth="400.0" text="SUMA: 0,00 zł">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="586.0" layoutY="9.0" prefHeight="25.0" prefWidth="400.0" text="SZCZEGÓŁY ZAMÓWIENIA">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="tabAboutItaly" style="-fx-background-color: #ce2b37;" text="O ITALY">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <ScrollPane prefHeight="426.0" prefWidth="1000.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="983.0">
+                                       <children>
+                                          <ImageView fitHeight="750.0" fitWidth="983.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/about_italy.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tabBasketStatus" style="-fx-background-color: #f2f2f2;" text="ZAMÓWIENIA">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="STATUSY ZAMÓWIEŃ">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="tblOrders" layoutX="14.0" layoutY="37.0" onMouseClicked="#selectOrderAction" prefHeight="375.0" prefWidth="810.0">
+                                <columns>
+                                  <TableColumn fx:id="tcLogin" prefWidth="125.0" text="login" />
+                                  <TableColumn fx:id="tcOrder" prefWidth="518.0" text="zamówienie" />
+                                    <TableColumn fx:id="tcStatusOrder" prefWidth="150.0" text="status" />
+                                </columns>
+                              </TableView>
+                              <ComboBox fx:id="cbStatus" layoutX="834.0" layoutY="37.0" prefHeight="25.0" prefWidth="152.0" promptText="zmień status" />
+                              <Spinner fx:id="sTime" layoutX="834.0" layoutY="262.0" prefHeight="25.0" prefWidth="152.0" />
+                              <CheckBox fx:id="cNew" layoutX="837.0" layoutY="177.0" mnemonicParsing="false" onAction="#SelectNewAction" text="nowe zamówienie" />
+                              <CheckBox fx:id="cInProgress" layoutX="837.0" layoutY="205.0" mnemonicParsing="false" onAction="#SelectInProgressAction" text="w realizacji" />
+                              <CheckBox fx:id="cDelivered" layoutX="837.0" layoutY="234.0" mnemonicParsing="false" onAction="#SelectDeliveredAction" text="dostarczone" />
+                              <ImageView fx:id="ivStatusConfirmation" fitHeight="137.0" fitWidth="152.0" layoutX="835.0" layoutY="298.0" onMouseClicked="#ConfirmStatusAction" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pizza.gif" />
+                                 </image>
+                              </ImageView>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tabEditMenu" style="-fx-background-color: #f2f2f2;" text="EDYCJA MENU">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;" />
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
