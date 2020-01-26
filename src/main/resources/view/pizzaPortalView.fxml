@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
@@ -65,6 +66,7 @@
                                     <Font name="System Bold Italic" size="14.0" />
                                  </font></Label>
                               <Label fx:id="lblSum" layoutX="14.0" layoutY="391.0" text="do zapłaty: 0,00 zł" />
+                              <ProgressBar fx:id="pBar" layoutX="132.0" layoutY="387.0" prefHeight="25.0" prefWidth="580.0" progress="0.0" />
                            </children>
                         </AnchorPane>
                   </content>

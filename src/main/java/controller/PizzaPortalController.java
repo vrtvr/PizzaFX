@@ -61,6 +61,8 @@ public class PizzaPortalController {
     private Label lblPizzaOfDay;
     @FXML
     private Label lblSum;
+    @FXML
+    private ProgressBar pBar;
     // TAB 2 - BASKET --------------------------------------------------------------------
     @FXML
     private ListView<String> lvBasket;
@@ -395,6 +397,27 @@ public class PizzaPortalController {
     }
 
     public void initialize() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 101; i++) {
+                    try {
+                        Thread.currentThread().sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    double range = (double)i / 100;
+                    pBar.setProgress(range);
+                }
+                Platform.exit();
+//                try {
+//                    logoutAction(new ActionEvent());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        });
+        thread.start();
         // zarzadzanie widocznosia tabow w zaleznosci od roli
         Set<Role> roles = LoginService.loggedUser.getRoles();
         System.out.println(roles);
